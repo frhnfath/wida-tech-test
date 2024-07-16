@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     isSubmitted: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: true
+      defaultValue: false
     }
   }, {
     timestamps: true,
