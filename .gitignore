@@ -1,0 +1,11 @@
+*.log
+temp/
+node_modules/
+.env
+/build
+/dist
+.vscode/  (for Visual Studio Code)
+.idea/    (for IntelliJ IDEA)
+*.suo     (for Visual Studio)
+*~
+.DS_Store
