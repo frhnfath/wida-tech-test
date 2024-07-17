@@ -8,6 +8,11 @@ const signToken = id => {
 }
 
 const registerUser = async (req, res) => {
+    if (!req.body.username || !req.body.email || !req.body.password) {
+        return res.status(404).json({
+            message: "Error, missing data",
+        })
+    }
     try {
         console.log('user body:', req.body);
         let {username, email, password} = req.body;

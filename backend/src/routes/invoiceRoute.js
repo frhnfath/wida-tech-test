@@ -12,4 +12,6 @@ addProductToInvoiceRoute = router.post('/add', invoiceController.addProductToInv
 
 removeProductFromInvoiceRoute = router.delete('/remove', invoiceController.removeProductFromInvoice);
 
+getProductsFromInvoice = router.get('/:id', invoiceController.getInvoice);
+
 module.exports = router;

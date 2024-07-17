@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Products.hasMany(models.Invoice_has_product, {foreignKey: 'product_id'});
     }
   }
   Products.init({
@@ -25,7 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.DECIMAL,
     deleted_at: DataTypes.DATE,
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
+    updatedAt: DataTypes.DATE,
+    quantity: DataTypes.INTEGER
   }, {
     timestamps: true,
     sequelize,

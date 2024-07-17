@@ -62,8 +62,27 @@ const deleteProduct = async (req, res) => {
     }
 }
 
+const updateProduct = async (req, res) => {
+    try {
+        let { id } = req.params;
+        const product = await Products.findByPk(id);
+        if (!product) {
+            res.status(404).json({error: 'Product not found'});
+        } else {
+            product.name = req.body.name;
+            product.quantity = req.body.quantity;
+            await product.save();
+            res.status(201).send();
+        }
+    } catch (error) {
+        console.log('Error updating product: ', error);
+        res.status(500).json({error: error.message});
+    }
+}
+
 module.exports = {
     getProducts,
     addProduct,
-    deleteProduct
+    deleteProduct,
+    updateProduct
 }

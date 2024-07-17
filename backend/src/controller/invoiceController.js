@@ -22,6 +22,41 @@ const getAllInvoices = async (req, res) => {
     }
 }
 
+const getInvoice = async (req, res) => {
+    const id = req.params.id;
+    const invoice = await Invoice.findByPk(id)
+    try {
+        const ihp = await Invoice_has_product.findAll({where: {
+            invoice_id: id,
+        }, include: [{model: Products, attributes: ['name', 'price']}]});
+        if (ihp) {
+            let totalPrice = 0;
+            ihp.forEach(item=> {
+                const quantity = item.quantity;
+                const price = item.Product.price;
+                const sum = quantity * price;
+                totalPrice += sum
+            })
+            return res.status(200).json({
+                message: "Success",
+                user_id: invoice.user_id,
+                total_price: totalPrice,
+                data: ihp
+            })
+        } else {
+            return res.status(404).json({
+                message: "Invoice not found",
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            message: "Error",
+            error
+        })
+    }
+}
+
 const createInvoice = async (req, res) => {
     try {
         const newInvoice = await Invoice.create({
@@ -108,5 +143,6 @@ module.exports = {
     createInvoice,
     addProductToInvoice,
     removeProductFromInvoice,
-    submitInvoice
+    submitInvoice,
+    getInvoice
 }
